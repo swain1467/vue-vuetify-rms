@@ -53,7 +53,7 @@ export default {
                         localStorage.setItem('user_id', JSON.stringify(res.data.token.original.user_id));
                         localStorage.setItem('user_name', JSON.stringify(res.data.token.original.user_name));
                         
-                        this.$router.push({ name: 'change_password'})
+                        this.$router.push({ name: 'user_dashboard'})
                     }else if(res.data.status == 'Error'){
                         this.$toast.error(res.data.message, {
                         position: 'top'

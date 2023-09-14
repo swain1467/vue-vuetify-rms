@@ -22,6 +22,12 @@ const routes = [
     name: 'change_password',
     component: () => import('../views/ChangePasswordView.vue')
   },
+  // Routes For User Pages
+  {
+    path: '/UserDashboard',
+    name: 'user_dashboard',
+    component: () => import('../views/user/DashboardView.vue')
+  },
 ]
 
 const router = createRouter({
