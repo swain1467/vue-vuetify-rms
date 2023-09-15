@@ -5,7 +5,7 @@
       <v-col cols="12">
         <v-text-field type="email" prepend-icon="mdi-email-box" label="Email" placeholder="johndoe@gmail.com" hint="Enter your email" v-model="txtEmail" clearable></v-text-field>
         <div class="float-right">
-          <v-btn color="dark" @click="sendOTP" dark>Send OTP&nbsp;<v-icon v-if="showLoader" dark right>mdi-send</v-icon><v-progress-circular v-else color="dark" indeterminate></v-progress-circular></v-btn>
+          <v-btn color="dark" @click="sendOTP" dark>Send OTP&nbsp;<v-icon v-if="showIcon" dark right>mdi-send</v-icon><v-progress-circular v-else color="dark" indeterminate></v-progress-circular></v-btn>
         </div>
       </v-col>
     </v-row>
@@ -41,7 +41,7 @@ export default {
             txtPassword: '',
             txtConfPassword: '',
             showEmail: true,
-            showLoader: true,
+            showIcon: true,
         }
     },
     methods:{
@@ -49,7 +49,7 @@ export default {
             const data = {
                 email: this.txtEmail
             }
-            this.showLoader = false
+            this.showIcon = false
             axios.post('SendOTP', data)
             .then(
                 res => {
@@ -57,7 +57,7 @@ export default {
                         this.$toast.success(res.data.message, {
                             position: 'top'
                         })
-                        this.showLoader = true
+                        this.showIcon = true
                         this.showEmail= false
                     }else if(res.data.status == 'Error'){
                         this.$toast.warning(res.data.message, {

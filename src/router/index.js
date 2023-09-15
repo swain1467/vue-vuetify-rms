@@ -22,12 +22,27 @@ const routes = [
     name: 'change_password',
     component: () => import('../views/ChangePasswordView.vue')
   },
-  // Routes For User Pages
+  // Routes For User Pages,
   {
     path: '/UserDashboard',
     name: 'user_dashboard',
     component: () => import('../views/user/DashboardView.vue')
   },
+  {
+    path: '/Find',
+    name: 'find',
+    component: () => import('../views/user/FindView.vue')
+  },
+  {
+    path: '/Post',
+    name: 'post',
+    component: () => import('../views/user/PostView.vue')
+  },
+  {
+    path: '/PostHistory',
+    name: 'post_history',
+    component: () => import('../views/user/PostHistoryView.vue')
+  }
 ]
 
 const router = createRouter({

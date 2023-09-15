@@ -3,7 +3,7 @@
   <v-container>
     <v-row>
         <v-col cols="6">
-            <v-card color="pink" class="text-center">
+            <v-card color="pink" :to="{name: 'find'}" class="text-center">
                 <v-icon dark right size="x-large">mdi-home-analytics</v-icon>
                 <h4>Find</h4>
                 <v-icon dark right size="x-large">mdi-office-building</v-icon>
@@ -11,7 +11,7 @@
             </v-card>
         </v-col>
         <v-col cols="6">
-            <v-card color="indigo" class="text-center">
+            <v-card color="indigo" :to="{name: 'post'}" class="text-center">
                 <v-icon dark right size="x-large">mdi-home-group</v-icon>
                 <h4>Post</h4>
                 <v-icon dark right size="x-large">mdi-office-building</v-icon>
@@ -19,7 +19,7 @@
             </v-card>
         </v-col>
         <v-col cols="12">
-            <v-card color="warning" class="text-center">
+            <v-card color="warning" :to="{name: 'post_history'}" class="text-center">
                 <v-icon dark right size="x-large">mdi-home-group</v-icon>
                 <h4>My Post</h4>
                 <v-icon dark right size="x-large">mdi-history</v-icon>
@@ -56,7 +56,6 @@ export default {
     },
 
     methods:{
-        
     }
 }
 </script>

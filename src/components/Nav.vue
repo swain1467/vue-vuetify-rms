@@ -8,8 +8,18 @@
                 </v-list>
                 <v-divider></v-divider>
                 <v-list density="compact">
-                    <v-list-item :to="{name: 'sign_in'}" prepend-icon="mdi-folder" title="Dashboard" value="myfiles"></v-list-item>
-                </v-list><v-list density="compact">
+                    <v-list-item :to="{name: 'user_dashboard'}" prepend-icon="mdi-home-account" title="Dashboard" value="myfiles"></v-list-item>
+                </v-list>
+                <v-list density="compact">
+                    <v-list-item :to="{name: 'find'}" prepend-icon="mdi-home-search" title="Find Property" value="FindProperty"></v-list-item>
+                </v-list>
+                <v-list density="compact">
+                    <v-list-item :to="{name: 'post'}" prepend-icon="mdi-home-plus" title="Post Property" value="PostProperty"></v-list-item>
+                </v-list>
+                <v-list density="compact">
+                    <v-list-item :to="{name: 'post_history'}" prepend-icon="mdi-folder-home-outline" title="Post History" value="PostHistory"></v-list-item>
+                </v-list>
+                <v-list density="compact">
                     <v-list-item @click="signOut" prepend-icon="mdi-power" title="Sign Out" value="signOut"></v-list-item>
                 </v-list>
             </v-navigation-drawer>
