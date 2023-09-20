@@ -42,6 +42,37 @@ const routes = [
     path: '/PostHistory',
     name: 'post_history',
     component: () => import('../views/user/PostHistoryView.vue')
+  },
+  {
+    path: '/AdminDashboard',
+    name: 'admin_dashboard',
+    component: () => import('../views/admin/AdminDashboardView.vue')
+  },
+  {
+    path: '/ActiveUsers',
+    name: 'active_users',
+    component: () => import('../views/admin/ActiveUsersView.vue')
+  },
+  {
+    path: '/BlackListedUsers',
+    name: 'black_listed_users',
+    component: () => import('../views/admin/BlackListedUsersView.vue')
+  },
+  {
+    path: '/Setup',
+    name: 'setup',
+    component: () => import('../views/admin/SetupView.vue')
+  },
+  {
+    path: '/Transition',
+    name: 'transition',
+    component: () => import('../views/admin/TransitionView.vue')
+  },
+  //catch all 404
+  {
+    path: '/:catchAll(.*)',
+    name: 'NotFound',
+    component: () => import('../views/NotFoundView.vue'),
   }
 ]
 

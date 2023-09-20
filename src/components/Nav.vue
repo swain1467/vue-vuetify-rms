@@ -19,6 +19,21 @@
                 <v-list density="compact">
                     <v-list-item :to="{name: 'post_history'}" prepend-icon="mdi-folder-home-outline" title="Post History" value="PostHistory"></v-list-item>
                 </v-list>
+                <v-list v-if="user_type === 'ADMIN'" density="compact">
+                    <v-list-item :to="{name: 'admin_dashboard'}" prepend-icon="mdi-view-dashboard" title="Admin Dashboard" value="AdminDashboard"></v-list-item>
+                </v-list>
+                <v-list v-if="user_type === 'ADMIN'" density="compact">
+                    <v-list-item :to="{name: 'setup'}" prepend-icon="mdi-cog" title="Setup" value="Setup"></v-list-item>
+                </v-list>
+                <v-list v-if="user_type === 'ADMIN'" density="compact">
+                    <v-list-item :to="{name: 'transition'}" prepend-icon="mdi-transit-connection-horizontal" title="Transition" value="Transition"></v-list-item>
+                </v-list>
+                <v-list v-if="user_type === 'ADMIN'" density="compact">
+                    <v-list-item :to="{name: 'active_users'}" prepend-icon="mdi-account-check" title="Active Users List" value="ActiveUsersList"></v-list-item>
+                </v-list>
+                <v-list v-if="user_type === 'ADMIN'" density="compact">
+                    <v-list-item :to="{name: 'black_listed_users'}" prepend-icon="mdi-account-cancel" title="Black Listed Users List" value="BlackListedUsersList"></v-list-item>
+                </v-list>
                 <v-list density="compact">
                     <v-list-item @click="signOut" prepend-icon="mdi-power" title="Sign Out" value="signOut"></v-list-item>
                 </v-list>

@@ -3,7 +3,7 @@
   <v-container>
     <v-row>
       <v-col cols="12">
-        <v-autocomplete prepend-icon="mdi-city-variant" v-model="selCity" :items="cityList" item-title="city_name" item-value="id" label="Select City/Town" @blur="getArea()"></v-autocomplete>
+        <v-autocomplete prepend-icon="mdi-city-variant" v-model="selCity" :items="cityList" item-title="city_name" item-value="id" label="Select City/Town" @blur="getArea"></v-autocomplete>
         <v-autocomplete prepend-icon="mdi-select-marker" v-model="selArea" :items="areaList" item-title="area_name" item-value="id" label="Select Area"></v-autocomplete>
         <v-autocomplete prepend-icon="mdi-home-city-outline" v-model="selType" :items="typeList" item-title="type" item-value="id" label="Select Propert Type"></v-autocomplete>
         <v-text-field type="text" prepend-icon="mdi-cash-multiple" label="Advance" placeholder="8000" hint="Enter your advance amount" v-model="txtAdvance" clearable></v-text-field>
@@ -77,7 +77,6 @@ mounted(){
   },
 methods: {
     getArea(){
-        console.log(this.selCity);
         const config = {
             headers: { Authorization: `Bearer ${this.token}` }
         };
