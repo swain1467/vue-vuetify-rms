@@ -2,7 +2,25 @@
   <Nav/>
   <v-container>
     <v-row>
-        <v-col cols="6">
+        <v-col cols="12">
+          <v-tabs v-model="tab" bg-color="warning">
+            <v-tab value="tabCity">City</v-tab>
+            <v-tab value="tabArea">Area</v-tab>
+            <v-tab value="tabPropertyType">Property Type</v-tab>
+          </v-tabs>
+          <v-window v-model="tab">
+            <v-window-item value="tabCity">
+              City
+            </v-window-item>
+
+            <v-window-item value="tabArea">
+              Area
+            </v-window-item>
+
+            <v-window-item value="tabPropertyType">
+              Property Type
+            </v-window-item>
+        </v-window>
         </v-col>
     </v-row>
   </v-container>
@@ -19,18 +37,12 @@ export default {
     },
     data(){
         return{
-            user_name:'',
-            user_type:'',
-            user_id:'',
-
-            showEmail: true,
+            tab: null,
         }
     },
 
     mounted() { 
-      this.user_name = JSON.parse(localStorage.getItem('user_name'))
-      this.user_id = JSON.parse(localStorage.getItem('user_id'))
-      this.user_name = JSON.parse(localStorage.getItem('user_name'))
+
     },
 
     methods:{
