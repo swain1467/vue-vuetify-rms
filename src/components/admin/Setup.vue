@@ -99,7 +99,46 @@
             </v-window-item>
             <!-- Property Tab -->
             <v-window-item value="tabPropertyType">
-              Property Type
+              <v-toolbar>
+                <v-btn color="info" dark class="mb-2" @click="addType()">
+                  <v-icon class="me-1">mdi-plus-box</v-icon> Add Type
+                </v-btn>
+              </v-toolbar>
+              <v-data-table
+                v-model:items-per-page="typeItemsPerPage"
+                :headers="typeHeaders"
+                :items="typeList"
+                :sort-by="[{ key: 'type', order: 'asc' }]"
+                item-value="type"
+                class="elevation-1"
+              >
+                <template v-slot:[`item.status`]="{ item }">
+                  <v-icon v-if="item.raw.status" color="success" size="small" class="me-2">mdi-check-all</v-icon>
+                  <v-icon v-else color="error" size="small" class="me-2">mdi-close-outline</v-icon>
+                </template>
+                <template v-slot:[`item.actions`]="{ item }">
+                  <v-icon size="small" class="me-2" @click="updateType(item.raw)">mdi-pencil</v-icon>
+                </template>
+              </v-data-table>
+              <!-- Property Type Dialog -->
+              <v-dialog v-model="typeDialog" max-width="500px">
+                <v-card>
+                  <v-card-title class="text-h5">{{typeDialogHeader}}</v-card-title>
+                  <v-card-body>
+                    <v-text-field type="text" prepend-icon="mdi-city-variant" label="Property Type" placeholder="2BHK" hint="Enter property type name" v-model="txtType" clearable></v-text-field>
+                    <v-radio-group prepend-icon="mdi-list-status" label="Status" inline v-model="txtTypeStatus">
+                      <v-radio value="1"></v-radio><v-icon color="success">mdi-check-bold</v-icon>
+                      &ensp;&ensp;&ensp;
+                      <v-radio value="0"></v-radio><v-icon color="error">mdi-close</v-icon>
+                    </v-radio-group>
+                  </v-card-body>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="primary" @click="saveTypeData" dark>Save&nbsp;<v-icon v-if="showTypeIcon" dark right>mdi-content-save-move</v-icon><v-progress-circular v-else color="dark" indeterminate></v-progress-circular></v-btn>
+                    <v-btn color="red-darken-1" variant="text" @click="closeDialog">Close<v-icon dark right>mdi-close-box</v-icon></v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
             </v-window-item>
         </v-window>
         </v-col>
@@ -154,6 +193,21 @@ export default {
             txtAreaId: '',
             txtAreaName: '',
             txtAreaStatus: '1',
+            //Property Type
+            typeItemsPerPage: 10,
+            typeList:[],
+            typeHeaders: [
+              { title: 'Sl No', align: 'center', key: 'sl_no', width: '15%' },
+              { title: "Property", align: 'start', key: 'type', width: '50%' },
+              { title: "Status", align: 'center', key: 'status', width: '20%' },
+              { title: 'Action', align: 'end', key: 'actions', width: '15%' }
+            ],
+            typeDialog: false,
+            typeDialogHeader: '',
+            showTypeIcon: true,
+            txtTypeId: '',
+            txtType: '',
+            txtTypeStatus: '1',
         }
     },
 
@@ -164,6 +218,7 @@ export default {
       this.token = JSON.parse(localStorage.getItem('token'))
       this.user_id = JSON.parse(localStorage.getItem('user_id'))
       this.GetCityList()
+      this.GetHouseTypeList()
     },
 
     methods:{
@@ -268,7 +323,6 @@ export default {
               }
           );
       },
-
       addArea(){
         this.areaDialog = true
         this.areaDialogHeader = 'Add Area'
@@ -320,6 +374,82 @@ export default {
                 this.getAreaList()
                 this.showAreaIcon = true
                 this.areaDialog = false
+                setTimeout(this.$toast.clear, 1000)
+              }
+          ).catch(
+              err => {
+                  console.log(err);
+              }
+          );
+      },
+      // property all methods
+      GetHouseTypeList(){
+        this.token = JSON.parse(localStorage.getItem('token'))
+        const config = {
+            headers: { Authorization: `Bearer ${this.token}` }
+        };
+        axios.get('auth/GetHouseTypeList',config)
+        .then(
+            res => {
+                this.typeList = res.data.aaData
+                this.areaTypeList = res.data.aaData1
+            }
+        ).catch(
+            err => {
+                console.log(err);
+            }
+        );
+      },
+      addType(){
+        this.typeDialog = true
+        this.typeDialogHeader = 'Add Property Type'
+        this.txtTypeId = ''
+        this.txtType = ''
+        this.txtTypeStatus= '1'
+      },
+      updateType(data) {
+        this.typeDialog = true
+        this.txtTypeId = data.id
+        this.txtType = data.type
+        if(data.status == 1){
+          this.txtTypeStatus= '1'
+        }else{
+          this.txtTypeStatus= '0'
+        }
+        this.typeDialogHeader = 'Update Property Type'
+      },
+      saveTypeData(){
+          this.showTypeIcon = false
+          const config = {
+              headers: { Authorization: `Bearer ${this.token}` }
+          };
+          const bodyParameters = {
+              id: this.user_id,
+              type_id: this.txtTypeId,
+              type: this.txtType,
+              type_status: this.txtTypeStatus,
+          };
+          axios.post( 'auth/SaveHouseType',bodyParameters,config)
+          .then(
+            res => {
+                if(res.data.status == 'Success'){
+                    this.$toast.success(res.data.message, {
+                        position: 'top'
+                    })
+                    this.showTypeForm = false;
+                    
+                }else if(res.data.status == 'Error'){
+                    this.$toast.warning(res.data.message, {
+                        position: 'top'
+                    })
+                }else{
+                    this.$toast.warning('Sorry something went wrong', {
+                        position: 'top'
+                    })
+                }
+                this.GetHouseTypeList()
+                this.showTypeIcon = true
+                this.typeDialog = false
                 setTimeout(this.$toast.clear, 1000)
               }
           ).catch(

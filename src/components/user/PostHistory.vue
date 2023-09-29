@@ -57,6 +57,7 @@
 import axios from 'axios'
 import Nav from '@/components/Nav.vue'
 import Footer from '@/components/Footer.vue'
+import changeDate from '../../composables/changeDate.js'
 
 export default {
     components:{
@@ -222,7 +223,7 @@ export default {
             
             this.txtAdvance = data.advance
             this.txtRentAmount = data.rent
-            this.txtAvailableFromDate = data.from_date
+            this.txtAvailableFromDate = changeDate(data.from_date)
             this.txtContactNo = data.contact_no
             this.txtDetailedAddress = data.detailed_address
         },
