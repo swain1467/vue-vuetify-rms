@@ -68,6 +68,11 @@ const routes = [
     name: 'transition',
     component: () => import('../views/admin/TransitionView.vue')
   },
+  {
+    path: '/Practice',
+    name: 'practice',
+    component: () => import('../views/PracticeView.vue')
+  },
   //catch all 404
   {
     path: '/:catchAll(.*)',
